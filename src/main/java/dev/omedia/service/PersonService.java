@@ -49,7 +49,7 @@ public class PersonService {
         }
     }
 
-    @CacheEvict(cacheNames = "person", key = "#id")
+    @CacheEvict(cacheNames = "person", key = "#personalNo")
     public void removePersonByPersonalNo(final String personalNo) {
         repo.deleteById(personalNo);
     }
