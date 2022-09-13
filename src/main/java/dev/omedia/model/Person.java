@@ -1,4 +1,4 @@
-package dev.omedia.models;
+package dev.omedia.model;
 
 import lombok.*;
 

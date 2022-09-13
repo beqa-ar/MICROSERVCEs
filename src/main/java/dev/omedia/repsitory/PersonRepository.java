@@ -1,6 +1,6 @@
-package dev.omedia.repsitories;
+package dev.omedia.repsitory;
 
-import dev.omedia.models.Person;
+import dev.omedia.model.Person;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 

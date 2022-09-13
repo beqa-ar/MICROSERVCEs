@@ -1,9 +1,9 @@
-package dev.omedia.services;
+package dev.omedia.service;
 
-import dev.omedia.exceptions.EntityAlreadyExistsException;
-import dev.omedia.exceptions.EntityNotFoundException;
-import dev.omedia.models.Person;
-import dev.omedia.repsitories.PersonRepository;
+import dev.omedia.exception.EntityAlreadyExistsException;
+import dev.omedia.exception.EntityNotFoundException;
+import dev.omedia.model.Person;
+import dev.omedia.repsitory.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;

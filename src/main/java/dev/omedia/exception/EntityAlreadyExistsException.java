@@ -1,4 +1,4 @@
-package dev.omedia.exceptions;
+package dev.omedia.exception;
 
 
 import org.springframework.http.HttpStatus;
