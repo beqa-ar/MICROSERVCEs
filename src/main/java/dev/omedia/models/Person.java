@@ -23,7 +23,7 @@ public class Person {
     @EqualsAndHashCode.Include
     @Pattern(regexp = "\\d{11}")
     @Column(name = "personal_no",nullable = false)
-    private long personalNo;
+    private String personalNo;
 
     @NotBlank
     @Column(name = "first_name", nullable = false, length = 128)
