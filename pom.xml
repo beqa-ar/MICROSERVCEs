@@ -13,8 +13,8 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>dev.omedia</groupId>
-    <artifactId>spring-boot-classwork-bootcamp-001</artifactId>
+    <groupId>service.agency</groupId>
+    <artifactId>sagency</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>spring-boot-classwork-bootcamp-001</name>
     <description>My first spring boot application</description>
@@ -50,6 +50,7 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
+        <!--modules-->
         <!--TEST-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
