@@ -2,12 +2,14 @@ package service.agency.domains;
 
 
 import lombok.*;
+import ministry.of.justice.model.person.Person;
 import service.agency.enums.AutoType;
 import service.agency.enums.OdometerUnit;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
+import java.time.Month;
 import java.time.Year;
 
 @Getter
@@ -30,21 +32,17 @@ public class Automobile {
     @Column(name = "manufacture_year", nullable = false)
     private Year manufactureYear;
 
+    @NotNull
+    @PastOrPresent
+    @Column(name = "manufacture_month", nullable = false)
+    private Month manufactureMonth;
+
 
     @NotNull
     @Enumerated(value = EnumType.STRING)
     @Column(name = "auto_type", nullable = false)
     private AutoType autoType;
 
-    @NotNull
-    @Digits(integer = 6, fraction = 0)
-    @Column(name = "odometer", nullable = false,  precision = 6)
-    private int odometer;
-
-    @NotNull
-    @Enumerated(value = EnumType.STRING)
-    @Column(name = "odometer_unit", nullable = false)
-    private OdometerUnit odometerUnit;
 
     @NotNull
     @Pattern(regexp = "[A-Z]{2}-\\d{3}-[A-Z]{2}")
@@ -52,8 +50,8 @@ public class Automobile {
     private String licenseNumber;
 
 
-
     @ManyToOne
-    @JoinColumn(name ="owner_id")
-    private Owner owner;
+    @JoinColumn(name ="owner_personal_no")
+    private Person owner;
+
 }
