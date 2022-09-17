@@ -1,12 +1,12 @@
 package service.agency;
 
-import ministry.of.justice.exceptions.EntityAlreadyExistsException;
 import ministry.of.justice.model.person.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import service.agency.domains.Automobile;
+import service.agency.domains.Owner;
 import service.agency.enums.AutoType;
 
 import javax.persistence.EntityNotFoundException;
@@ -32,10 +32,10 @@ public class AutomobileService {
         return repo.findAll(pageable);
     }
 
-    public Automobile registerAutomobile(Person owner, String licenseNumber, String vin, Month manufactureMonth, Year manufactureYear, AutoType type) {
+    public Automobile registerAutomobile(Person person, String licenseNumber, String vin, Month manufactureMonth, Year manufactureYear, AutoType type) {
         if (repo.existsById(vin)) {
             repo.findById(vin).ifPresent(automobile ->{
-                automobile.setOwner(owner);
+                automobile.setOwner(new Owner(person));
                 automobile.setLicenseNumber(licenseNumber);
                 automobile.setVinCode(vin);
                 automobile.setManufactureMonth(manufactureMonth);
@@ -44,7 +44,7 @@ public class AutomobileService {
             });
             return repo.findById(vin).get();
         }else {
-            Automobile automobile =new Automobile(vin,manufactureYear,manufactureMonth,type,licenseNumber, owner);
+            Automobile automobile =new Automobile(vin,manufactureYear,manufactureMonth,type,licenseNumber, new Owner(person));
             return repo.save(automobile);
         }
     }

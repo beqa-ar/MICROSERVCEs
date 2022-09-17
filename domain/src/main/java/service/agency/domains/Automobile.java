@@ -4,11 +4,12 @@ package service.agency.domains;
 import lombok.*;
 import ministry.of.justice.model.person.Person;
 import service.agency.enums.AutoType;
-import service.agency.enums.OdometerUnit;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
-
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.time.Month;
 import java.time.Year;
 
@@ -33,7 +34,7 @@ public class Automobile {
     private Year manufactureYear;
 
     @NotNull
-    @PastOrPresent
+    @Enumerated(value = EnumType.STRING)
     @Column(name = "manufacture_month", nullable = false)
     private Month manufactureMonth;
 
@@ -50,8 +51,8 @@ public class Automobile {
     private String licenseNumber;
 
 
-    @ManyToOne
-    @JoinColumn(name ="owner_personal_no")
-    private Person owner;
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name ="personal_no")
+    private Owner owner;
 
 }

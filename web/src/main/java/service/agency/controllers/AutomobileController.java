@@ -12,9 +12,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import service.agency.AutomobileService;
-import service.agency.resttemplate.PersonClientImpl;
 import service.agency.domains.Automobile;
 import service.agency.enums.AutoType;
+import service.agency.resttemplate.PersonClientImpl;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Max;
