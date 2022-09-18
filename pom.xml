@@ -7,7 +7,7 @@
         <module>domain</module>
         <module>service</module>
         <module>repository</module>
-        <module>controller</module>
+        <module>web</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

@@ -27,13 +27,11 @@ public class PersonService {
         return repo.findAll(pageable);
     }
 
-    @Cacheable(cacheNames = "person", key = "#personalNo")
     public Person findByPersonalNo(final String personalNo) {
         return repo.findById(personalNo)
                 .orElseThrow(() -> new EntityNotFoundException(Person.class.getName() + "with personal no : " + personalNo + " not found"));
     }
 
-    @CachePut(cacheNames = "person", key = "#person.personalNo")
     public Person addPerson(final Person person) {
         if (repo.existsById(person.getPersonalNo())) {
             throw new EntityAlreadyExistsException(Person.class.getName() + "personal no : " + person.getPersonalNo() + " already exists");
@@ -41,7 +39,6 @@ public class PersonService {
         return repo.save(person);
     }
 
-    @CachePut(cacheNames = "person", key = "#personalNo")
     public Person updatePerson(final String personalNo, final Person person) {
         if (repo.existsById(personalNo)) {
             person.setPersonalNo(personalNo);
@@ -51,7 +48,6 @@ public class PersonService {
         }
     }
 
-    @CacheEvict(cacheNames = "person", key = "#personalNo")
     public void removePersonByPersonalNo(final String personalNo) {
         repo.deleteById(personalNo);
     }
