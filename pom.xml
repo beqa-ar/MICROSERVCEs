@@ -2,6 +2,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <packaging>pom</packaging>
+    <modules>
+        <module>domain</module>
+    </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -9,8 +13,8 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>dev.omedia</groupId>
-    <artifactId>spring-boot-classwork-bootcamp-001</artifactId>
+    <groupId>insurance</groupId>
+    <artifactId>insurance</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>spring-boot-classwork-bootcamp-001</name>
     <description>My first spring boot application</description>
@@ -28,6 +32,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <artifactId>sagency-domain</artifactId>
+            <groupId>service.agency</groupId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <!--        DRIVERS-->
         <dependency>

@@ -1,4 +1,4 @@
-package dev.omedia.enums;
+package insurance.enums;
 
 public enum OdometerUnit {
     KILOMETER,
