@@ -73,13 +73,13 @@ public class CollateralAuto {
     @NotNull
     @PositiveOrZero
     @Column(name = "insurance_pension", nullable = false, precision = 12, scale = 2)
-    private double insurancePension;
+    private Double insurancePension;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "personal_no")
     private Debtor debtor;
 
-    public CollateralAuto(Automobile automobile, int odometer, OdometerUnit odometerUnit, double insuranceAmount) {
+    public CollateralAuto(Automobile automobile, int odometer, OdometerUnit odometerUnit, double insuranceAmount,LoanType loanType,Double franchiseAmount) {
         vinCode = automobile.getVinCode();
         manufactureYear = automobile.getManufactureYear();
         autoType = automobile.getAutoType();
@@ -87,8 +87,12 @@ public class CollateralAuto {
         this.odometer = odometer;
         this.odometerUnit = odometerUnit;
         this.insuranceAmount = insuranceAmount;
-        this.insurancePension = calculateInsurancePension();
+        this.loanType=loanType;
+        if(loanType.equals(LoanType.LIMITLESS)&&franchiseAmount>0){
+            throw new IllegalArgumentException("loan type is limitless so franchiseAmount must be 0");
+        }
         debtor = new Debtor(automobile.getOwner());
+        this.insurancePension = calculateInsurancePension();
     }
 
     private double calculateInsurancePension() {

@@ -2,6 +2,7 @@ package insurance.controller;
 
 import insurance.CollateralAutoService;
 import insurance.domains.CollateralAuto;
+import insurance.enums.LoanType;
 import insurance.enums.OdometerUnit;
 import insurance.resttemplate.AutomobileClientImpl;
 import io.swagger.v3.oas.annotations.Operation;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import service.agency.domains.Automobile;
 import service.agency.enums.AutoType;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -75,13 +77,17 @@ public class CollateralAutoController {
     @Operation(summary = "add CollateralAuto")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "add CollateralAuto", content = {@Content(mediaType = "application/json")}),
-            @ApiResponse(responseCode = "409", description = "CollateralAuto with the given VIN already exists", content = {@Content(mediaType = "application/json")}),
+            @ApiResponse(responseCode = "409", description = "CollateralAuto with the given params already exists", content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "500", description = "Server error", content = {@Content(mediaType = "application/json")})})
-    public ResponseEntity<CollateralAuto> addCollateralAuto(@PathVariable String personalNo, @RequestParam String licenseNumber
-            , @RequestParam int odometer, @RequestParam OdometerUnit odometerUnit, @RequestParam double insuranceAmount) {
+    public ResponseEntity<CollateralAuto> addCollateralAuto(@RequestParam String personalNo, @RequestParam String licenseNumber
+            , @RequestParam int odometer, @RequestParam OdometerUnit odometerUnit, @RequestParam double insuranceAmount
+            , @RequestParam LoanType loanType, @RequestParam(required = false) Double franchiseAmount) {
         Automobile automobile = automobileClient.getByLicenseNumberAndOwnerPersonalNo(licenseNumber, personalNo);
+        if(automobile==null){
+            throw new EntityNotFoundException("CollateralAuto with the given params dont exists");
+        }
         return new ResponseEntity<>(
-                service.addCollateralAuto(automobile, odometer, odometerUnit, insuranceAmount)
+                service.addCollateralAuto(automobile, odometer, odometerUnit, insuranceAmount,loanType,franchiseAmount)
                 , HttpStatus.CREATED);
 
     }

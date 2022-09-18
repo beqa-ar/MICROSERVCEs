@@ -1,5 +1,6 @@
 package insurance;
 
+import insurance.enums.LoanType;
 import insurance.enums.OdometerUnit;
 import insurance.exception.CollateralAgeException;
 import ministry.of.justice.exceptions.EntityAlreadyExistsException;
@@ -35,18 +36,17 @@ public class CollateralAutoService {
         return repo.findAll(pageable);
     }
 
-    public CollateralAuto addCollateralAuto(Automobile automobile, int odometer, OdometerUnit odometerUnit,double insuranceAmount) {
-        if(automobile.getManufactureYear().getValue()-Year.now().getValue()>25){
+    public CollateralAuto addCollateralAuto(Automobile automobile, int odometer, OdometerUnit odometerUnit, double insuranceAmount, LoanType loanType, Double franchiseAmount) {
+        if (automobile.getManufactureYear().getValue() - Year.now().getValue() > 25) {
             throw new CollateralAgeException("auto is older than 25");
         }
         if (repo.existsById(automobile.getVinCode())) {
-           throw new EntityAlreadyExistsException(CollateralAuto.class.getName() + "with vin: " + automobile.getVinCode() + " already Exists");
-            } else {
-            CollateralAuto collateralAuto =new CollateralAuto(automobile,odometer,odometerUnit,insuranceAmount);
+            throw new EntityAlreadyExistsException(CollateralAuto.class.getName() + "with vin: " + automobile.getVinCode() + " already Exists");
+        } else {
+            CollateralAuto collateralAuto = new CollateralAuto(automobile, odometer, odometerUnit, insuranceAmount, loanType, franchiseAmount);
             return repo.save(collateralAuto);
         }
     }
-
 
 
     public CollateralAuto updateCollateralAuto(final String vin, final CollateralAuto auto) {
