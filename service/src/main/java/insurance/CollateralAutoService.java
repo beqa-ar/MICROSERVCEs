@@ -1,6 +1,7 @@
 package insurance;
 
 import insurance.enums.OdometerUnit;
+import insurance.exception.CollateralAgeException;
 import ministry.of.justice.exceptions.EntityAlreadyExistsException;
 import ministry.of.justice.model.person.Person;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,10 @@ public class CollateralAutoService {
         return repo.findAll(pageable);
     }
 
-    public CollateralAuto addCollateralAuto(Automobile automobile, int odometer, OdometerUnit odometerUnit,int insuranceAmount) {
+    public CollateralAuto addCollateralAuto(Automobile automobile, int odometer, OdometerUnit odometerUnit,double insuranceAmount) {
+        if(automobile.getManufactureYear().getValue()-Year.now().getValue()>25){
+            throw new CollateralAgeException("auto is older than 25");
+        }
         if (repo.existsById(automobile.getVinCode())) {
            throw new EntityAlreadyExistsException(CollateralAuto.class.getName() + "with vin: " + automobile.getVinCode() + " already Exists");
             } else {
